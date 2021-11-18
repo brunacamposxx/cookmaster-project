@@ -31,9 +31,18 @@ const allFieldsMustBeFilled = (req, res, next) => {
 const incorrectUserOrPwd = async (req, res, next) => {
   const { email, password } = req.body;
   const getByEmail = await userModel.getUserByEmail(email);
-  console.log(getByEmail);
+  // console.log(getByEmail);
   if (!getByEmail || getByEmail.password !== password) {
     return res.status(401).json({ message: 'Incorrect username or password' });
+  }
+  next();
+};
+
+const invalidEntriesLogin = (req, res, next) => {
+  const { name, ingredients, preparation } = req.body;
+
+  if (!name || !ingredients || !preparation) {
+    return res.status(400).json({ message: 'Invalid entries. Try again.' });
   }
   next();
 };
@@ -43,4 +52,5 @@ module.exports = {
   invalidEmail,
   allFieldsMustBeFilled,
   incorrectUserOrPwd,
+  invalidEntriesLogin,
 };
