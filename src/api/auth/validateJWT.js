@@ -1,6 +1,6 @@
 const rescue = require('express-rescue');
 const jwt = require('jsonwebtoken');
-// const userModel = require('../../models/userModel');
+const userModel = require('../../models/userModel');
 
 const secret = 'hardcoded-secret';
 
@@ -11,13 +11,18 @@ const jwtConfig = {
 
 const authorization = rescue(async (req, res, next) => {
   const token = req.headers.authorization;
-  const decoded = jwt.verify(token, secret, jwtConfig);
-  console.log(decoded);
 
-    if (token !== decoded) {
-      return res.status(400).json({ message: 'jwt malformed' });
+  try {
+    const decoded = jwt.verify(token, secret, jwtConfig);
+    const user = await userModel.getUserByEmail(decoded.email);
+    
+    if (!user) {
+      return res.status(401).json({ message: 'jwt malformed' });
     }
     next();
+  } catch (err) {
+    return res.status(401).json({ message: 'jwt malformed' });
+  }
 });
 
 module.exports = {
