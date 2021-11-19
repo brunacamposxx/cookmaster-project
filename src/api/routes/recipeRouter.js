@@ -7,6 +7,7 @@ const { authorization } = require('../auth/validateJWT');
 // const upload = multer({ dest: 'uploads/' });
 
 router.get('/', recipeController.getAllRecipes);
+router.get('/:id', recipeController.getRecipeById);
 router.post('/', invalidEntriesLogin, authorization, recipeController.createRecipe);
 // router.post('/', upload.single('image'));
 

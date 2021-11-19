@@ -1,4 +1,4 @@
-// const { ObjectId } = require('mongodb');
+const { ObjectId } = require('mongodb');
 const connection = require('./connection');
 
 const createRecipe = async ({ name, ingredients, preparation, userId }) => {
@@ -20,7 +20,17 @@ const getAllRecipes = async () => {
   return recipes;
 };
 
+// userId está chegando null =(
+// error: argument passed in must be a single string of 12 btes or a string of 24 hex characters
+const getRecipeById = async (id) => {
+  const db = await connection();
+  // if (!ObjectId.isValid(id)) return;
+  const recipeById = await db.collection('recipes').findOne({ _id: ObjectId(id) });
+  return recipeById;
+};
+
 module.exports = {
   createRecipe,
   getAllRecipes,
+  getRecipeById,
 };

@@ -15,7 +15,20 @@ const getAllRecipes = rescue(async (req, res) => {
   return res.status(200).json(recipes);
 });
 
+const getRecipeById = rescue(async (req, res) => {
+  const { id } = req.params;
+
+  const recipeById = await recipeService.getRecipeById(id);
+  console.log(recipeById);
+  if (!recipeById) {
+    return res.status(404).json({ message: 'Recipe not found' });
+  }
+
+  return res.status(200).json(recipeById);
+});
+
 module.exports = {
   createRecipe,
   getAllRecipes,
+  getRecipeById,
 };
