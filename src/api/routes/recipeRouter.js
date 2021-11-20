@@ -8,6 +8,8 @@ const { authorization } = require('../auth/validateJWT');
 
 router.get('/', recipeController.getAllRecipes);
 router.get('/:id', recipeController.getRecipeById);
+router.put('/:id', authorization, recipeController.updateRecipe);
+router.delete('/:id', authorization, recipeController.excludeRecipe);
 router.post('/', invalidEntriesLogin, authorization, recipeController.createRecipe);
 // router.post('/', upload.single('image'));
 

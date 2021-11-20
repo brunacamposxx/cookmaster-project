@@ -1,3 +1,4 @@
+const { ObjectId } = require('mongodb');
 const recipeModel = require('../models/recipeModel');
 
 const createRecipe = async ({ name, ingredients, preparation, userId }) => {
@@ -11,15 +12,33 @@ const getAllRecipes = async () => {
 };
 
 const getRecipeById = async (id) => {
+  if (!ObjectId.isValid(id)) return null;
   const recipeById = await recipeModel.getRecipeById(id);
-  // if (!recipeById) {
-  //   throw new Error('Recipe not found');
-  // }
   return recipeById;
+};
+
+const updateRecipe = async ({ id, name, ingredients, preparation, userId, role }) => {
+  if (!ObjectId.isValid(id)) return null;
+  const findByid = await recipeModel.getRecipeById(id);
+
+  if (findByid.userId === userId || role === 'admin') {
+    await recipeModel.updateRecipe({ id, name, ingredients, preparation });
+  }
+
+  return {
+    _id: id, name, ingredients, preparation, userId };
+};
+
+const excludeRecipe = async (id) => {
+  if (ObjectId.isValid(id)) return null;
+  const result = await recipeModel.excludeRecipe(id);
+  return result;
 };
 
 module.exports = {
   createRecipe,
   getAllRecipes,
   getRecipeById,
+  updateRecipe,
+  excludeRecipe,
 };

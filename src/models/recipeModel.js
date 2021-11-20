@@ -10,7 +10,7 @@ const createRecipe = async ({ name, ingredients, preparation, userId }) => {
       ingredients,
       preparation,
       userId,
-      _id: newRecipe.insertId,
+      _id: newRecipe.insertedId,
   };
 };
 
@@ -24,13 +24,27 @@ const getAllRecipes = async () => {
 // error: argument passed in must be a single string of 12 btes or a string of 24 hex characters
 const getRecipeById = async (id) => {
   const db = await connection();
-  // if (!ObjectId.isValid(id)) return;
   const recipeById = await db.collection('recipes').findOne({ _id: ObjectId(id) });
   return recipeById;
+};
+
+const updateRecipe = async ({ id, name, ingredients, preparation }) => {
+  const db = await connection();
+  const update = await db.collection('recipes').findOneAndUpdate({
+    _id: ObjectId(id) }, { $set: { name, ingredients, preparation } });
+    return update;
+};
+
+const excludeRecipe = async (id) => {
+  const db = await connection();
+  const exclude = await db.collection('recipes').findOneAndDelete({ _id: ObjectId(id) });
+  return exclude;
 };
 
 module.exports = {
   createRecipe,
   getAllRecipes,
   getRecipeById,
+  updateRecipe,
+  excludeRecipe,
 };
