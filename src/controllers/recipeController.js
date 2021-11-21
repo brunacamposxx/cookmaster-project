@@ -45,7 +45,6 @@ const excludeRecipe = rescue(async (req, res) => {
 const addImage = rescue(async (req, res) => {
   const { id } = req.params;
   const { _id: userId, role } = req.user;
-  // const { image } = req.file;
 
   const updateRecipeImg = await recipeService.addImage({ id, userId, role });
   return res.status(200).json(updateRecipeImg);

@@ -20,5 +20,6 @@ app.use('/login', loginRoutes);
 app.use('/recipes', recipeRoutes);
 // app.use('/images', express.static(path.join(__dirname, '..', 'uploads')));
 // app.use('/images', express.static(resolve(__dirname, 'uploads')));
+app.use('/images', express.static(`${__dirname}/../uploads`));
 
 module.exports = app;

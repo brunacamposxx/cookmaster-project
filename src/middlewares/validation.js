@@ -56,14 +56,14 @@ const invalidEntriesLogin = (req, res, next) => {
 //   next();
 // };
 
-// const onlyAdmins = (req, res, next) => {
-//   const { role } = req.user;
+const onlyAdmins = (req, res, next) => {
+  const { role } = req.user;
 
-//   if (role !== 'admin') {
-//     return res.status(401).json({ message: 'Only admins can register new admins' });
-//   }
-//   next();
-// };
+  if (role !== 'admin') {
+    return res.status(403).json({ message: 'Only admins can register new admins' });
+  }
+  next();
+};
 
 module.exports = {
   invalidEntries,
@@ -72,5 +72,5 @@ module.exports = {
   incorrectUserOrPwd,
   invalidEntriesLogin,
   // missingAuthToken,
-  // onlyAdmins,
+  onlyAdmins,
 };
