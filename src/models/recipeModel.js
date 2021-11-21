@@ -20,8 +20,6 @@ const getAllRecipes = async () => {
   return recipes;
 };
 
-// userId está chegando null =(
-// error: argument passed in must be a single string of 12 btes or a string of 24 hex characters
 const getRecipeById = async (id) => {
   const db = await connection();
   const recipeById = await db.collection('recipes').findOne({ _id: ObjectId(id) });
@@ -41,10 +39,18 @@ const excludeRecipe = async (id) => {
   return exclude;
 };
 
+const addImage = async ({ id, imageURL }) => {
+  const db = await connection();
+  const update = await db.collection('recipes').findOneAndUpdate({
+    _id: ObjectId(id) }, { $set: { imageURL } });
+    return update;
+};
+
 module.exports = {
   createRecipe,
   getAllRecipes,
   getRecipeById,
   updateRecipe,
   excludeRecipe,
+  addImage,
 };

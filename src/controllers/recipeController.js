@@ -38,11 +38,17 @@ const updateRecipe = rescue(async (req, res) => {
 
 const excludeRecipe = rescue(async (req, res) => {
   const { id } = req.params;
-  // const { _id: userId } = req.user;
-  // console.log(userId);
-
   const exclude = await recipeService.excludeRecipe(id);
   return res.status(204).json(exclude);
+});
+
+const addImage = rescue(async (req, res) => {
+  const { id } = req.params;
+  const { _id: userId, role } = req.user;
+  // const { image } = req.file;
+
+  const updateRecipeImg = await recipeService.addImage({ id, userId, role });
+  return res.status(200).json(updateRecipeImg);
 });
 
 module.exports = {
@@ -51,4 +57,5 @@ module.exports = {
   getRecipeById,
   updateRecipe,
   excludeRecipe,
+  addImage,
 };

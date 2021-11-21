@@ -47,14 +47,23 @@ const invalidEntriesLogin = (req, res, next) => {
   next();
 };
 
-const missingAuthToken = (req, res, next) => {
-  const token = req.headers.authorization;
+// const missingAuthToken = (req, res, next) => {
+//   const token = req.headers.authorization;
 
-  if (!token) {
-    return res.status(401).json({ message: 'missing auth token' });
-  }
-  next();
-};
+//   if (!token) {
+//     return res.status(401).json({ message: 'missing auth token' });
+//   }
+//   next();
+// };
+
+// const onlyAdmins = (req, res, next) => {
+//   const { role } = req.user;
+
+//   if (role !== 'admin') {
+//     return res.status(401).json({ message: 'Only admins can register new admins' });
+//   }
+//   next();
+// };
 
 module.exports = {
   invalidEntries,
@@ -62,5 +71,6 @@ module.exports = {
   allFieldsMustBeFilled,
   incorrectUserOrPwd,
   invalidEntriesLogin,
-  missingAuthToken,
+  // missingAuthToken,
+  // onlyAdmins,
 };
