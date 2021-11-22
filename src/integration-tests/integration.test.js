@@ -1,6 +1,6 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const MongoClient = require('mongodb/lib/mongo_client');
+// const MongoClient = require('mongodb/lib/mongo_client');
 chai.use(chaiHttp);
 const { expect } = chai;
 const sinon = require('sinon');
@@ -94,4 +94,5 @@ describe('POST /login - Crie um endpoint para o login de usuários', () => {
       expect(response.body.message).to.not.be.empty;
     });
   });
+  
 });
