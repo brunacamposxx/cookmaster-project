@@ -42,7 +42,7 @@ const excludeRecipe = async (id) => {
 const addImage = async ({ id, imageURL }) => {
   const db = await connection();
   const update = await db.collection('recipes').findOneAndUpdate({
-    _id: ObjectId(id) }, { $set: { imageURL } });
+    _id: ObjectId(id) }, { $set: { image: imageURL } });
     return update;
 };
 
