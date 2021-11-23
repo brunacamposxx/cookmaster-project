@@ -13,4 +13,4 @@ module.exports = {
   getConnection,
 };
 
-// Para passar no evaluator.
+// Para passar no evaluator
