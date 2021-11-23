@@ -16,6 +16,14 @@
     "type": "git",
     "url": "git+https://github.com/tryber/sd-0x-cookmaster-v2.git"
   },
+  "config": {
+    "mongodbMemoryServer": {
+      "systemBinary": "/opt/homebrew/bin/mongod",
+      "disablePostinstall": "1",
+      "version": "4.4.2",
+      "debug": "0"
+    }
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
