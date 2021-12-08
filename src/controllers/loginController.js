@@ -12,7 +12,6 @@ const authenticated = rescue(async (req, res) => {
   const { email } = req.body;
     
   const userFound = await userModel.getUserByEmail(email);
-  // const { password, ...userWithPassword } = userFound;
   const { _id, role } = userFound;
   
   const token = jwt.sign({ _id, email, role }, secret, jwtConfig);

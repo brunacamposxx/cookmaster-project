@@ -12,5 +12,3 @@ const getConnection = async () => {
 module.exports = {
   getConnection,
 };
-
-// Para passar no evaluator
